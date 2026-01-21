@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet, ScrollView, TextInput, Image, ImageSourcePropType, Pressable } from "react-native";
-import { router } from "expo-router";
-import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { FavouriteIcon, Home, Notification01Icon, Robot01Icon, Search01Icon, StarsIcon, UserCircleIcon, UserSharingIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
-import { UserCircleIcon, Notification01Icon, StarsIcon, Search01Icon, Video01Icon, ShoppingBag01Icon, StarIcon, PencilIcon, Home, Robot01Icon, FavouriteIcon, UserSharingIcon } from "@hugeicons/core-free-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
+import { Image, ImageSourcePropType, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 export default function Index() {
@@ -43,37 +43,41 @@ export default function Index() {
               marginHorizontal: scale(15)
               }}>What does your buddy 🐶 need today?</Text>
             {/* search bar */}
-            <View style={{gap:scale(15),marginHorizontal: scale(15),paddingVertical:verticalScale(20),flexDirection:'row',alignItems:'center'}}>
-              {/* search bar left */}  
-              <View style={{shadowColor: '#000', shadowOpacity:.05,shadowRadius:25, shadowOffset:{width:0,height:4},flex:1}}>
-                <LinearGradient
-                  colors={['#00000009', '#e8e8e805']}
-                  start={{x:-.3,y:-.3}}
-                  end={{x:1,y:1}}
-                  style={{flex:1,borderRadius:25}}
-                >
-                  <View style={[styles.search_bar]}>
-                    <BlurView intensity={35} tint="light" style={StyleSheet.absoluteFill}/>
-                    <HugeiconsIcon icon={Search01Icon} />
-                    <TextInput placeholder="What are you looking for?" placeholderTextColor={'#6B7280'} style={{fontFamily:'Inter-Regular', paddingVertical:verticalScale(12),flex:1}}></TextInput>
-                  </View>
-                </LinearGradient>
+            <Pressable onPress={()=>{
+              router.push('/test')
+            }}>
+              <View style={{gap:scale(15),marginHorizontal: scale(15),paddingVertical:verticalScale(20),flexDirection:'row',alignItems:'center'}}>
+                {/* search bar left */}  
+                <View style={{shadowColor: '#000', shadowOpacity:.05,shadowRadius:25, shadowOffset:{width:0,height:4},flex:1}}>
+                  <LinearGradient
+                    colors={['#00000009', '#e8e8e805']}
+                    start={{x:-.3,y:-.3}}
+                    end={{x:1,y:1}}
+                    style={{flex:1,borderRadius:25}}
+                  >
+                    <View style={[styles.search_bar]}>
+                      <BlurView intensity={35} tint="light" style={StyleSheet.absoluteFill}/>
+                      <HugeiconsIcon icon={Search01Icon} />
+                      <TextInput placeholder="What are you looking for?" placeholderTextColor={'#6B7280'} style={{fontFamily:'Inter-Regular', paddingVertical:verticalScale(12),flex:1}}></TextInput>
+                    </View>
+                  </LinearGradient>
+                </View>
+                {/* search bar right */}  
+                <View style={[
+                  styles.circle,
+                  {backgroundColor:'#e0e0e01f',
+                  padding: scale(8),
+                  borderColor:'rgba(255, 255, 255, 0.7)',
+                  borderWidth:scale(2),
+                  shadowColor: '#000',
+                  shadowRadius:10,
+                  shadowOffset:{width:0,height:2},
+                  shadowOpacity: 0.1
+                  }]}>
+                  <HugeiconsIcon icon={StarsIcon} color={'purple'}/>
+                </View>
               </View>
-              {/* search bar right */}  
-              <View style={[
-                styles.circle,
-                {backgroundColor:'#e0e0e01f',
-                padding: scale(8),
-                borderColor:'rgba(255, 255, 255, 0.7)',
-                borderWidth:scale(2),
-                shadowColor: '#000',
-                shadowRadius:10,
-                shadowOffset:{width:0,height:2},
-                shadowOpacity: 0.1
-                }]}>
-                <HugeiconsIcon icon={StarsIcon} color={'purple'}/>
-              </View>
-            </View>
+            </Pressable>
             <Text style={{fontSize: moderateScale(15), fontFamily:'Inter-Medium',marginHorizontal: scale(15)}}>Browse by Type</Text>
             {/* Type List */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{gap:scale(10),paddingVertical:verticalScale(20)}} >
