@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Button, Text, View } from "react-native";
+import { ActivityIndicator, Button, FlatList, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Item = {
     id: string;
@@ -32,13 +33,23 @@ export default function Counter(){
     }
 
     return (
-        <View style={{
-            flex:1,
-            justifyContent:'center',
-            alignItems:'center'
-        }}>
-            <Text>{data[0].brand}</Text>
-            <Button title="Go Back" onPress={()=>router.back()}></Button>
-        </View>
+        <SafeAreaView style={{flex:1}} edges={["top"]}>
+            <View style={{
+                justifyContent:'center',
+                alignItems:'center',
+            }}>
+                <FlatList
+                    data={data}
+                    keyExtractor={(item)=>item.brand}
+                    renderItem={({item})=>(
+                        <View>
+                            <Text>{ item.brand }</Text>
+                        </View>
+                    )}
+                    >
+                    </FlatList>
+                <Button title="Go Back" onPress={()=>router.back()}></Button>
+            </View>
+        </SafeAreaView>
     );
 }
