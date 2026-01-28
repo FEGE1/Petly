@@ -44,7 +44,7 @@ export default function Product(){
                     router.replace("/");
                     return;
                 }
-
+                
                 setItem(json[0]);
             } catch (e){
                 console.error(e);
