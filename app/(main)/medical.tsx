@@ -11,6 +11,8 @@ import { addDays, addWeeks, format, isSameDay, startOfWeek } from "date-fns";
 import { useMemo, useState } from "react";
 import PagerView from "react-native-pager-view";
 
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+
 function getWeekDays(anchorDate: Date) {
   const start = startOfWeek(anchorDate, { weekStartsOn: 1 });
   return Array.from({ length: 7 }, (_, i) => addDays(start, i));
@@ -49,7 +51,7 @@ export default function Medical(){
                         width:scale(320),  
                         backgroundColor:'transparent', 
                         justifyContent:'center', 
-                        borderRadius:20,
+                        borderRadius:scale(16),
                         borderColor:'#ffffffde',
                         borderWidth:scale(.5),
                         gap:verticalScale(8),
@@ -108,6 +110,36 @@ export default function Medical(){
                             </PagerView>
                         </View>
                     </View>
+                    {/* section3 */}
+                    <View style={{
+                        overflow:'hidden',
+                        marginTop:verticalScale(10),
+                        width:scale(320),
+                        aspectRatio:1.6,
+                        padding:scale(5),
+                        backgroundColor:'transparent',
+                        borderRadius:scale(16),
+                        borderColor:'#ffffffde',
+                        borderWidth:scale(.5), 
+                        gap:verticalScale(3)
+                    }}>
+                        <BlurView intensity={20} tint='light' style={StyleSheet.absoluteFill}/>
+                        <Text style={{fontFamily:'Inter-Medium', fontSize:moderateScale(14), color:'#fff', textAlign:'center'}}>Nearest Clinics</Text>
+                        <View style={{flex: 1}}>
+                            {/* Map */}
+                            <MapView
+                                provider={PROVIDER_GOOGLE}
+                                customMapStyle={glassMapStyle}
+                                style={[StyleSheet.absoluteFill,{borderRadius:scale(12),}]}
+                                initialRegion={{
+                                    latitude: 41.0082,
+                                    longitude: 28.9784,
+                                    latitudeDelta: 0.05,
+                                    longitudeDelta: 0.05,
+                                }}
+                            />
+                        </View>
+                    </View>
                     <View style={{height:2000}}></View>
                 </ScrollView>
             </SafeAreaView>
@@ -135,10 +167,10 @@ function EmergencyCall({width}:EmergencyCallProps){
             overflow:'hidden', 
             width:width, 
             aspectRatio:2.8, 
-            backgroundColor:'#ffffff00', 
+            backgroundColor:'transparent', 
             justifyContent:'center', 
             alignItems:'center',
-            borderRadius:20,
+            borderRadius:scale(16),
             borderColor:'#ffffffde',
             borderWidth:scale(.5)
         }}>
@@ -170,3 +202,26 @@ function AppointmentItem({title,date}:AppointmentItemPromps){
         </View>
     );
 }
+
+{/* Map Style */}
+const glassMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#f3f6fb" }] },
+  { elementType: "labels", stylers: [{ visibility: "on" }] },
+
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+  { featureType: "transit", stylers: [{ visibility: "off" }] },
+
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+  { featureType: "road", elementType: "labels", stylers: [{ visibility: "on" }] },
+
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#dbeafe" }] },
+];
+
+const darkMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#0b1220" }] },
+  { elementType: "labels", stylers: [{ visibility: "off" }] },
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+  { featureType: "transit", stylers: [{ visibility: "off" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#1f2a44" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#0a2a43" }] },
+];
