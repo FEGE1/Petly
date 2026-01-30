@@ -36,7 +36,7 @@ export default function MainLayout(){
                     <HOME />
                 </View>
                 <View key='medical' style={{flex:1}}>
-                    <MEDICAL />
+                    <MEDICAL isActive={page === 1}/>
                 </View>
                 <View key='care' style={{flex:1}}>
                     <CARE />
